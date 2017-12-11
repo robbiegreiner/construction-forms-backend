@@ -1,0 +1,42 @@
+{
+  "name": "byob",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint ./",
+    "test": "NODE_ENV=test mocha --exit",
+    "build": "./node_modules/webpack/bin/webpack.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexbanister/byob.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexbanister/byob/issues"
+  },
+  "homepage": "https://github.com/alexbanister/byob#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "knex": "^0.14.2",
+    "pg": "^7.4.0"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-loader": "^7.1.2",
+    "chai": "^4.1.2",
+    "chai-http": "git+https://github.com/chaijs/chai-http.git#3ea4524",
+    "eslint": "^4.13.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.5.1",
+    "mocha": "^4.0.1"
+  }
+}
