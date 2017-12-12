@@ -22,7 +22,6 @@ const parser = (data) => {
 };
 
 exports.seed = (knex, Promise) => {
-  console.log(parser(projectData));
 
   return knex('employees_projects').del()
     .then(() => knex('projects').del())
