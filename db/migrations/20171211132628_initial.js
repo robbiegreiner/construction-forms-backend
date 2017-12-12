@@ -22,8 +22,8 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('employees_projects', (table) => {
       table.integer('project_id').unsigned();
       table.foreign('project_id').references('projects.id');
-      table.integer('employees_id').unsigned();
-      table.foreign('employees_id').references('employees.id');
+      table.integer('employee_id').unsigned();
+      table.foreign('employee_id').references('employees.id');
     })
 
 

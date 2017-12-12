@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const employeeData = fs.readFileSync('./db/seeds/dev/employees.tsv', 'utf8');
 const projectData = fs.readFileSync('./db/seeds/dev/projects.tsv', 'utf8');
+const employeeProjectData = fs.readFileSync('./db/seeds/dev/employees_projects.tsv', 'utf8');
 
 
 
@@ -23,13 +24,18 @@ const parser = (data) => {
 exports.seed = (knex, Promise) => {
   console.log(parser(projectData));
 
-  return knex('employees').del()
+  return knex('employees_projects').del()
     .then(() => knex('projects').del())
+    .then(() => knex('employees').del())
     .then(() => {
       // Inserts seed entries
       return knex('employees').insert(parser(employeeData));
     })
     .then(() => {
       return knex('projects').insert(parser(projectData));
-    });
+    })
+    .then(() => {
+      return knex('employees_projects').insert(parser(employeeProjectData));
+    }); //catch
+
 };
