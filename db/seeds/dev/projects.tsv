@@ -1,31 +1,31 @@
-id	name	location	lead_employee	union	public
-1	United Airlines Remodel	Denver	1	TRUE	TRUE
-2	Coors Field West Mezzanine	Denver	1	TRUE	TRUE
-3	Denver Brewing Company Tank 7	Denver	4	FALSE	FALSE
-4	FedEx Dock Levelers	Colorado Springs	4	TRUE	TRUE
-5	Turing Bathroom Remodels	Denver	3	FALSE	FALSE
-6	Union Station Kitchen Improvements	Denver	2	TRUE	TRUE
-7	University of Denver Dining Hall	Denver	6	TRUE	TRUE
-8	Foothills Animal Shelter Kennels	Lakewood	6	FALSE	FALSE
-9	Panda Express #3758	Arvada	6	TRUE	TRUE
-10	Confluence Condominiums	Denver	5	FALSE	FALSE
-11	Spencer Labs	Englewood	3	TRUE	TRUE
-12	University of Denver Dorm 1	Denver	3	FALSE	FALSE
-13	CU Denver Student Activities	Denver	4	TRUE	TRUE
-14	Stevinson Toyota Remodel	Lakewood	5	TRUE	TRUE
-15	Stevinson Porsche Remodel	Lakewood	5	FALSE	FALSE
-16	Cedars Sinai OR Remodel	Aurora	6	TRUE	TRUE
-17	Colorado State University Remodel	Fort Collins	2	TRUE	TRUE
-18	Palmer Elementary Tornado Shelter	Denver	2	FALSE	FALSE
-19	Mile High Stadium Concessions	Denver	1	TRUE	TRUE
-20	Denver East High School Gym	Denver	3	FALSE	FALSE
-21	Shortline Subaru Kitchen	Aurora	4	TRUE	TRUE
-22	Granicus Bathroom Remodel	Denver	5	FALSE	FALSE
-23	Schomp Mini Lobby Remodel	Highlands Ranch	2	TRUE	TRUE
-24	Leadville Hospital	Leadville	6	FALSE	FALSE
-25	State Farm Office	Golden	4	FALSE	FALSE
-26	Hillstone Apartments	Castle Rock	3	TRUE	TRUE
-27	Brighton Senior Living	Brighton	3	FALSE	FALSE
-28	CU School of Music	Denver	2	TRUE	TRUE
-29	Ogden Theatre Tile Renovation	Denver	1	TRUE	TRUE
-30	Taco Bell #4567	Highlands Ranch	3	FALSE	FALSE
+name	location	lead_employee	union	public
+United Airlines Remodel	Denver	Robbie Greiner	TRUE	TRUE
+Coors Field West Mezzanine	Denver	Robbie Greiner	TRUE	TRUE
+Denver Brewing Company Tank 7	Denver	Alex Berg	FALSE	FALSE
+FedEx Dock Levelers	Colorado Springs	Alex Berg	TRUE	TRUE
+Turing Bathroom Remodels	Denver	Todd Gak	FALSE	FALSE
+Union Station Kitchen Improvements	Denver	Bill Smith	TRUE	TRUE
+University of Denver Dining Hall	Denver	Elaine Benes	TRUE	TRUE
+Foothills Animal Shelter Kennels	Lakewood	Elaine Benes	FALSE	FALSE
+Panda Express #3758	Arvada	Elaine Benes	TRUE	TRUE
+Confluence Condominiums	Denver	George Costanza	FALSE	FALSE
+Spencer Labs	Englewood	Todd Gak	TRUE	TRUE
+University of Denver Dorm 1	Denver	Todd Gak	FALSE	FALSE
+CU Denver Student Activities	Denver	Alex Berg	TRUE	TRUE
+Stevinson Toyota Remodel	Lakewood	George Costanza	TRUE	TRUE
+Stevinson Porsche Remodel	Lakewood	George Costanza	FALSE	FALSE
+Cedars Sinai OR Remodel	Aurora	Elaine Benes	TRUE	TRUE
+Colorado State University Remodel	Fort Collins	Bill Smith	TRUE	TRUE
+Palmer Elementary Tornado Shelter	Denver	Bill Smith	FALSE	FALSE
+Mile High Stadium Concessions	Denver	Robbie Greiner	TRUE	TRUE
+Denver East High School Gym	Denver	Todd Gak	FALSE	FALSE
+Shortline Subaru Kitchen	Aurora	Alex Berg	TRUE	TRUE
+Granicus Bathroom Remodel	Denver	George Costanza	FALSE	FALSE
+Schomp Mini Lobby Remodel	Highlands Ranch	Bill Smith	TRUE	TRUE
+Leadville Hospital	Leadville	Elaine Benes	FALSE	FALSE
+State Farm Office	Golden	Alex Berg	FALSE	FALSE
+Hillstone Apartments	Castle Rock	Todd Gak	TRUE	TRUE
+Brighton Senior Living	Brighton	Todd Gak	FALSE	FALSE
+CU School of Music	Denver	Bill Smith	TRUE	TRUE
+Ogden Theatre Tile Renovation	Denver	Robbie Greiner	TRUE	TRUE
+Taco Bell #4567	Highlands Ranch	Todd Gak	FALSE	FALSE
