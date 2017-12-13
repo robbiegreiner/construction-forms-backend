@@ -1,13 +1,14 @@
 const express = require('express');
+
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
+
 const app = express();
 const bodyParser = require('body-parser');
 
 const requireHTTPS = (request, response, next) => {
-  // eslint-disable-next-line eqeqeq
-  if (request.header('x-forwarded-proto') != 'https') {
+  if (request.header('x-forwarded-proto') !== 'https') {
     return response.redirect(`https://${request.header('host')}${request.url}`);
   }
   next();
@@ -26,7 +27,7 @@ app.get('/api/v1/projects', (request, response) => {
     .then(projects => {
       response.status(200).json(projects);
     })
-    .catch((error) => {
+    .catch(error => {
       response.status(500).json({ error });
     });
 });
@@ -35,10 +36,12 @@ app.get('/api/v1/projects', (request, response) => {
 app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
 
-  if (!project.name){
-    return response
+  for (let requiredParameter of ['name', 'location', 'union', 'lead_employee', 'public']) {
+    if (!project[requiredParameter]) {
+      return response
         .status(422)
-        .send({ error: 'Missing a name property.' });
+        .send({ error: `Expected format: { name: <String>, location: <String>, lead_employee: <Integer>, union: <Boolean>, public: <Boolean> }. You're missing a "${requiredParameter}" property.` });
+    }
   }
 
   database('projects').insert(project, 'id')
