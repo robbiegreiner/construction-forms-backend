@@ -71,15 +71,15 @@ app.get('/api/v1/employees', (request, response) => {
 app.post('/api/v1/employees', (request, response) => {
   const employee = request.body;
 
-  if (!project.name){
+  if (!employee.name){
     return response
-        .status(422)
-        .send({ error: 'Missing a name property.' });
+      .status(422)
+      .send({ error: 'Missing a name property.' });
   }
 
-  database('employee').insert(employee, 'id')
-    .then(project => {
-      response.status(201).json({ id: project[0] });
+  database('employees').insert(employee, 'id')
+    .then(employee => {
+      response.status(201).json({ id: employee[0] });
     })
     .catch(error => {
       response.status(500).json({ error });
