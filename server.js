@@ -40,16 +40,19 @@ app.post('/api/v1/projects', (request, response) => {
     if (!project[requiredParameter]) {
       return response
         .status(422)
-        .send({ error: `Expected format: { name: <String>, location: <String>, lead_employee: <Integer>, union: <Boolean>, public: <Boolean> }. You're missing a "${requiredParameter}" property.` });
+        .send({ error: `Expected format: { name: <String>, location: <String>, lead_employee: <String>, union: <Boolean>, public: <Boolean> }. You're missing a "${requiredParameter}" property.` });
     }
   }
-
-  database('projects').insert(project, 'id')
-    .then(project => {
-      response.status(201).json({ id: project[0] });
-    })
-    .catch(error => {
-      response.status(500).json({ error });
+  database('employees').where('name', project.lead_employee).first()
+    .then(employee => {
+      const newProject = Object.assign({}, project, { lead_employee: employee.id });
+      database('projects').insert(newProject, 'id')
+        .then(project => {
+          response.status(201).json({ id: project[0] });
+        })
+        .catch(error => {
+          response.status(500).json({ error });
+        });
     });
 });
 
