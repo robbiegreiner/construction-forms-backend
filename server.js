@@ -59,7 +59,7 @@ app.post('/api/v1/auth', (request, response) => {
 //Happy Path works
 //Verify thorough Sad Paths
 app.get('/api/v1/projects', (request, response) => {
-  const allowedQueryParams = ['name', 'location'];
+  const allowedQueryParams = ['name', 'location', 'union', 'public'];
   const query = Object.keys(request.query).reduce((accum, key) => {
     if (allowedQueryParams.includes(key)) {
       return Object.assign(accum, { [key]: request.query[key] });
