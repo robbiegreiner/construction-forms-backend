@@ -24,19 +24,23 @@ app.set('port', process.env.PORT || 3000);
 app.locals.title = 'BYOB';
 
 const checkAuth = (request, response, next) => {
-  if (!request.body.token) {
+  const token = request.body.token ||
+                request.headers.authorization.replace('Bearer ', '') ||
+                request.query.token;
+  if (!token) {
     return response.status(403).send('You must be authorized to hit this endpoint.');
   }
 
-  jwt.verify(request.body.token, app.get('secretKey'), (error, decoded) => {
+  jwt.verify(token, process.env.SECRETKEY, (error, decoded) => {
     if (error) {
       return response.status(403).send('Invalid token');
     }
     if (!decoded.admin) {
       return response.status(403).send('Invalid Admin');
     }
+    delete request.body.token;
     next();
-  })
+  });
 };
 
 //request JWT
@@ -46,7 +50,7 @@ app.post('/api/v1/auth', (request, response) => {
     return response.status(422).send('Email and App Name are required');
   }
   const admin = email.includes('@turing.io') ? true : false;
-  const token = jwt.sign({ email, appName, admin }, process.env.SECRETKEY, { expiresIn: '1m' });
+  const token = jwt.sign({ email, appName, admin }, process.env.SECRETKEY, { expiresIn: '365d' });
   return response.status(200).json(token);
 });
 
@@ -66,7 +70,7 @@ app.get('/api/v1/projects', (request, response) => {
 //add new project
 //Happy Path works
 //Verify thorough Sad Paths
-app.post('/api/v1/projects', (request, response) => {
+app.post('/api/v1/projects', checkAuth, (request, response) => {
   const project = request.body;
 
   for (let requiredParameter of ['name', 'location', 'union', 'public']) {
@@ -101,7 +105,7 @@ app.get('/api/v1/employees', (request, response) => {
 //add new employee
 //Happy Path works
 //Verify thorough Sad Paths
-app.post('/api/v1/employees', (request, response) => {
+app.post('/api/v1/employees', checkAuth, (request, response) => {
   const employee = request.body;
 
   for (let requiredParameter of ['name', 'position', 'email', 'phone']) {
@@ -124,7 +128,7 @@ app.post('/api/v1/employees', (request, response) => {
 //delete project
 //Happy Path works
 //Verify thorough Sad Paths
-app.delete('/api/v1/projects/:projectId', (request, response) => {
+app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).del()
     .then( () => {
@@ -138,7 +142,7 @@ app.delete('/api/v1/projects/:projectId', (request, response) => {
 //delete employee
 //Happy Path works
 //Verify thorough Sad Paths
-app.delete('/api/v1/employees/:employeeId', (request, response) => {
+app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).del()
     .then( () => {
@@ -152,7 +156,7 @@ app.delete('/api/v1/employees/:employeeId', (request, response) => {
 //update project
 //Happy Path works
 //Verify thorough Sad Paths
-app.patch('/api/v1/projects/:projectId', (request, response) => {
+app.patch('/api/v1/projects/:projectId', checkAuth, (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).update(request.body)
     .then( () => {
@@ -166,7 +170,7 @@ app.patch('/api/v1/projects/:projectId', (request, response) => {
 //update employee
 //Happy Path works
 //Verify thorough Sad Paths
-app.patch('/api/v1/employees/:employeeId', (request, response) => {
+app.patch('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).update(request.body)
     .then( () => {
@@ -208,7 +212,7 @@ app.get('/api/v1/employees/:employeeId/projects', (request, response) => {
 // add employee to project
 //Happy Path works
 //Verify thorough Sad Paths
-app.post('/api/v1/projects/:projectId/employees/:employeeId', (request, response) => {
+app.post('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (request, response) => {
   const project = request.params.projectId;
   const employee = request.params.employeeId;
   database('employees_projects').insert({
@@ -226,7 +230,7 @@ app.post('/api/v1/projects/:projectId/employees/:employeeId', (request, response
 //remove employee from project
 //Happy Path works
 //Verify thorough Sad Paths
-app.delete('/api/v1/projects/:projectId/employees/:employeeId', (request, response) => {
+app.delete('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (request, response) => {
   const project = request.params.projectId;
   const employee = request.params.employeeId;
   database('employees_projects')
