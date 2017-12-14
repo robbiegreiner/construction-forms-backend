@@ -75,7 +75,6 @@ app.post('/api/v1/projects', checkAuth, (request, response) => {
   const project = request.body;
   for (let requiredParameter of ['name', 'location', 'union', 'public']) {
     if (!project[requiredParameter] && project[requiredParameter] !== false) {
-      console.log(requiredParameter);
       return response
         .status(422)
         .send({ error: `Expected format: { name: <String>, location: <String>, union: <Boolean>, public: <Boolean> }. You're missing a "${requiredParameter}" property.` });
@@ -108,7 +107,6 @@ app.get('/api/v1/employees', (request, response) => {
 //Verify thorough Sad Paths
 app.post('/api/v1/employees', checkAuth, (request, response) => {
   const employee = request.body;
-
   for (let requiredParameter of ['name', 'position', 'email', 'phone']) {
     if (!employee[requiredParameter]) {
       return response

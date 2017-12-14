@@ -59,7 +59,7 @@ describe('API Routes', () => {
           response.should.have.status(200);
           response.should.be.json;
           response.body.should.be.a('array');
-          response.body.length.should.equal(30);
+          response.body[0].should.be.a('object');
           response.body[0].should.have.property('name');
           response.body[0].name.should.be.a('string');
           response.body[0].should.have.property('location');
@@ -68,10 +68,6 @@ describe('API Routes', () => {
           response.body[0].union.should.be.a('boolean');
           response.body[0].should.have.property('public');
           response.body[0].public.should.be.a('boolean');
-
-          response.body[0].should.be.a('object');
-          response.body[0].should.have.property('name');
-
         })
         .catch(err => {
           throw err;
@@ -113,7 +109,77 @@ describe('API Routes', () => {
     });
     it('should return a 404 for a route that does not exist', () => {
       return chai.request(server)
-        .get('/api/v1/sad')
+        .post('/api/v1/projects/sad')
+        .then(response => {
+          response.should.have.status(404);
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+  });
+
+  describe('GET /api/v1/employees', () => {
+    it('should return all employees', () => {
+      return chai.request(server)
+        .get('/api/v1/employees')
+        .then(response => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body[0].should.be.a('object');
+          response.body[0].should.have.property('id');
+          response.body[0].id.should.be.a('number');
+          response.body[0].should.have.property('name');
+          response.body[0].name.should.be.a('string');
+          response.body[0].should.have.property('position');
+          response.body[0].position.should.be.a('string');
+          response.body[0].should.have.property('email');
+          response.body[0].email.should.be.a('string');
+          response.body[0].should.have.property('phone');
+          response.body[0].phone.should.be.a('string');
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+    it('should return a 404 for a route that does not exist', () => {
+      return chai.request(server)
+        .get('/api/v1/employees/sad')
+        .then(response => {
+          response.should.have.status(404);
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+  });
+
+  describe('POST /api/v1/employees', () => {
+    it('should add a new employee in the database', () => {
+      return chai.request(server)
+        .post('/api/v1/employees')
+        .send({
+          name: 'Eric Trump',
+          position: 'Loser',
+          email: 'loser@marlago.com',
+          phone: '222-222-2222',
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k'
+        })
+        .then(response => {
+          response.should.have.status(201);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.should.have.property('id');
+          response.body.id.should.be.a('number');
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+    it('should return a 404 for a route that does not exist', () => {
+      return chai.request(server)
+        .post('/api/v1/employees/sad')
         .then(response => {
           response.should.have.status(404);
         })
