@@ -125,6 +125,33 @@ app.post('/api/v1/employees', checkAuth, (request, response) => {
       response.status(500).json({ error });
     });
 });
+//get single project
+//Happy Path works
+//Verify thorough Sad Paths
+app.get('/api/v1/projects/:projectId', (request, response) => {
+  const id = request.params.projectId;
+  database('projects').where('id', id).first()
+    .then( project => {
+      response.status(200).json(project);
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+});
+
+//get single employee
+//Happy Path works
+//Verify thorough Sad Paths
+app.get('/api/v1/employees/:employeeId', (request, response) => {
+  const id = request.params.employeeId;
+  database('employees').where('id', id).first()
+    .then( employee => {
+      response.status(200).json(employee);
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+});
 
 //delete project
 //Happy Path works
@@ -133,7 +160,7 @@ app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).del()
     .then( () => {
-      response.status(204).json({ id });
+      response.status(204).send();
     })
     .catch(error => {
       response.status(500).json({ error });
@@ -187,7 +214,7 @@ app.patch('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
 //Verify thorough Sad Paths
 app.get('/api/v1/projects/:projectId/employees', (request, response) => {
   database('employees')
-    .join('employees_projects', 'employees_projects.employee_id', '=', 'employees.id')
+    .join('employees_projects', 'employees_projects.employee_id', 'employees.id')
     .where('employees_projects.project_id', request.params.projectId)
     .select('*')
     .then(employees => response.status(200).json(employees))
