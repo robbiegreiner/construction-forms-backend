@@ -19,7 +19,7 @@ const parser = (data) => {
   });
 };
 
-exports.seed = function(knex, Promise) {
+exports.seed = function(knex) {
   return knex('employees_projects').del()
     .then(() => knex('projects').del())
     .then(() => knex('employees').del())
