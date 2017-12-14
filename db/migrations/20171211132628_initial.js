@@ -14,10 +14,6 @@ exports.up = function(knex, Promise) {
       table.string('name');
       table.string('location');
       table.boolean('union');
-      table.integer('lead_employee')
-        .unsigned()
-        .references('employees.id')
-        .onDelete('CASCADE');
       table.boolean('public');
     }),
 
