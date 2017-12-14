@@ -107,7 +107,7 @@ app.delete('/api/v1/employees/:employeeId', (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).del()
     .then( () => {
-      response.status(204).json({ id });
+      response.status(204).send();
     })
     .catch(error => {
       response.status(500).json({ error });
