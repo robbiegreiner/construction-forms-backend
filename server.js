@@ -51,6 +51,8 @@ const checkAuth = (request, response, next) => {
 };
 
 //get all projects
+//Happy Path works
+//Verify thorough Sad Paths
 app.get('/api/v1/projects', (request, response) => {
   database('projects').select()
     .then(projects => {
@@ -62,30 +64,30 @@ app.get('/api/v1/projects', (request, response) => {
 });
 
 //add new project
+//Happy Path works
+//Verify thorough Sad Paths
 app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
 
-  for (let requiredParameter of ['name', 'location', 'union', 'lead_employee', 'public']) {
+  for (let requiredParameter of ['name', 'location', 'union', 'public']) {
     if (!project[requiredParameter]) {
       return response
         .status(422)
-        .send({ error: `Expected format: { name: <String>, location: <String>, lead_employee: <String>, union: <Boolean>, public: <Boolean> }. You're missing a "${requiredParameter}" property.` });
+        .send({ error: `Expected format: { name: <String>, location: <String>, union: <Boolean>, public: <Boolean> }. You're missing a "${requiredParameter}" property.` });
     }
   }
-  database('employees').where('name', project.lead_employee).first()
-    .then(employee => {
-      const newProject = Object.assign({}, project, { lead_employee: employee.id });
-      database('projects').insert(newProject, 'id')
-        .then(project => {
-          response.status(201).json({ id: project[0] });
-        })
-        .catch(error => {
-          response.status(500).json({ error });
-        });
+  database('projects').insert(project, 'id')
+    .then(project => {
+      response.status(201).json({ id: project[0] });
+    })
+    .catch(error => {
+      response.status(500).json({ error });
     });
 });
 
 //get all employee
+//Happy Path works
+//Verify thorough Sad Paths
 app.get('/api/v1/employees', (request, response) => {
   database('employees').select()
     .then(employees => {
@@ -97,13 +99,17 @@ app.get('/api/v1/employees', (request, response) => {
 });
 
 //add new employee
+//Happy Path works
+//Verify thorough Sad Paths
 app.post('/api/v1/employees', (request, response) => {
   const employee = request.body;
 
-  if (!employee.name){
-    return response
-      .status(422)
-      .send({ error: 'Missing a name property.' });
+  for (let requiredParameter of ['name', 'position', 'email', 'phone']) {
+    if (!employee[requiredParameter]) {
+      return response
+        .status(422)
+        .send({ error: `Expected format: { name: <String>, position: <String>, email: <String>, phone: <String> }. You're missing a "${requiredParameter}" property.` });
+    }
   }
 
   database('employees').insert(employee, 'id')
@@ -116,6 +122,8 @@ app.post('/api/v1/employees', (request, response) => {
 });
 
 //delete project
+//Happy Path works
+//Verify thorough Sad Paths
 app.delete('/api/v1/projects/:projectId', (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).del()
@@ -128,6 +136,8 @@ app.delete('/api/v1/projects/:projectId', (request, response) => {
 });
 
 //delete employee
+//Happy Path works
+//Verify thorough Sad Paths
 app.delete('/api/v1/employees/:employeeId', (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).del()
@@ -140,18 +150,41 @@ app.delete('/api/v1/employees/:employeeId', (request, response) => {
 });
 
 //update project
+//Happy Path works
+//Verify thorough Sad Paths
 app.patch('/api/v1/projects/:projectId', (request, response) => {
-
+  const id = request.params.projectId;
+  database('projects').where('id', id).update(request.body)
+    .then( () => {
+      response.status(204).send();
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
 });
 
 //update employee
+//Happy Path works
+//Verify thorough Sad Paths
 app.patch('/api/v1/employees/:employeeId', (request, response) => {
-
+  const id = request.params.employeeId;
+  database('employees').where('id', id).update(request.body)
+    .then( () => {
+      response.status(204).send();
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
 });
 
 //get all employees for a project
+//Happy Path works
+//Verify thorough Sad Paths
 app.get('/api/v1/projects/:projectId/employees', (request, response) => {
-  database('employees').join('employees_projects', 'employees_projects.employee_id', '=', 'employees.id').where('employees_projects.project_id', request.params.projectId).select('*')
+  database('employees')
+    .join('employees_projects', 'employees_projects.employee_id', '=', 'employees.id')
+    .where('employees_projects.project_id', request.params.projectId)
+    .select('*')
     .then(employees => response.status(200).json(employees))
     .catch(error => {
       response.status(500).json({ error });
@@ -159,10 +192,52 @@ app.get('/api/v1/projects/:projectId/employees', (request, response) => {
 });
 
 //get all projects for an employee
-//NOT WORKING
+//Happy Path works
+//Verify thorough Sad Paths
 app.get('/api/v1/employees/:employeeId/projects', (request, response) => {
-  database('projects').join('employees_projects', 'employees_projects.employee_id', '=', 'projects.id').where('employees_projects.employee_id', request.params.employeeId).select('*')
-    .then(palettes => response.status(200).json(palettes))
+  database('projects')
+    .join('employees_projects', 'employees_projects.project_id', '=', 'projects.id')
+    .where('employees_projects.employee_id', request.params.employeeId)
+    .select('*')
+    .then(projects => response.status(200).json(projects))
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+});
+
+// add employee to project
+//Happy Path works
+//Verify thorough Sad Paths
+app.post('/api/v1/projects/:projectId/employees/:employeeId', (request, response) => {
+  const project = request.params.projectId;
+  const employee = request.params.employeeId;
+  database('employees_projects').insert({
+    employee_id: employee,
+    project_id: project
+  })
+    .then(() => {
+      response.status(201).send();
+    })
+    .catch(error => {
+      response.status(500).json({ error });
+    });
+});
+
+//remove employee from project
+//Happy Path works
+//Verify thorough Sad Paths
+app.delete('/api/v1/projects/:projectId/employees/:employeeId', (request, response) => {
+  const project = request.params.projectId;
+  const employee = request.params.employeeId;
+  database('employees_projects')
+    .where({
+      employee_id: employee,
+      project_id: project
+    })
+    .del()
+    .then(() => {
+      response.status(204).send();
+    })
     .catch(error => {
       response.status(500).json({ error });
     });
