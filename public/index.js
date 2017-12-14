@@ -1,7 +1,7 @@
 const emailInput = document.querySelector('#email');
 const appInput = document.querySelector('#app-name');
-const submitButton = document.querySelector('#submit')
-const tokenDiv = document.querySelector('.token')
+const submitButton = document.querySelector('#submit');
+const tokenDiv = document.querySelector('.token');
 
 const submitData = (event) => {
   event.preventDefault();

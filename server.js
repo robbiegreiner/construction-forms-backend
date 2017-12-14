@@ -46,7 +46,6 @@ const checkAuth = (request, response, next) => {
 
 //request JWT
 app.post('/api/v1/auth', (request, response) => {
-  console.log(request);
   const { email, appName } = request.body;
   if (!email || !appName) {
     return response.status(422).send('Email and App Name are required');
