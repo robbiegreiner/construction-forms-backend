@@ -1,8 +1,8 @@
 const fs = require('fs');
 
-const employeeData = fs.readFileSync('./db/seeds/dev/employees.tsv', 'utf8');
-const projectData = fs.readFileSync('./db/seeds/dev/projects.tsv', 'utf8');
-const employeeProjectData = fs.readFileSync('./db/seeds/dev/employees_projects.tsv', 'utf8');
+const employeeData = fs.readFileSync('./db/seeds/test/test_employees.tsv', 'utf8');
+const projectData = fs.readFileSync('./db/seeds/test/test_projects.tsv', 'utf8');
+const employeeProjectData = fs.readFileSync('./db/seeds/test/test_employees_projects.tsv', 'utf8');
 
 const parser = (data) => {
   const allLines = data.split(/\r\n|\n/);
@@ -22,7 +22,9 @@ const parser = (data) => {
 exports.seed = function(knex) {
   return knex('employees_projects').del()
     .then(() => knex('projects').del())
+    .then(() => knex.raw('ALTER SEQUENCE projects_id_seq RESTART WITH 1'))
     .then(() => knex('employees').del())
+    .then(() => knex.raw('ALTER SEQUENCE employees_id_seq RESTART WITH 1'))
     .then(() => {
       // Inserts seed entries
       return knex('employees').insert(parser(employeeData));
