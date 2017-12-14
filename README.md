@@ -236,9 +236,135 @@ Example **response:**
 ### Employees
 
 #### <code>GET</code> /api/v1/employees
+Example **request:**
+  - No body required/accepted
+
+Example **response:**
+```
+[
+  {
+    "id": 62,
+    "name": "Robbie Greiner",
+    "position": "Foreman",
+    "email": "robbie@gcbuilders.net",
+    "phone": "303-123-4567"
+  },
+  {
+    "id": 63,
+    "name": "Bill Smith",
+    "position": "Foreman",
+    "email": "bill@gcbuilders.net",
+    "phone": "303-123-4568"
+  },
+  {
+    "id": 64,
+    "name": "Todd Gak",
+    "position": "Foreman",
+    "email": "todd@gcbuilders.net",
+    "phone": "303-123-4569"
+  }
+]
+```
+    - This endpoint accepts query parameters
+      <code>/api/v1/projects/?name=Todd Gak</code>
+      **response:**
+      ```
+      {
+        "id": 64,
+        "name": "Todd Gak",
+        "position": "Foreman",
+        "email": "todd@gcbuilders.net",
+        "phone": "303-123-4569"
+      }
+      ```
+      Accepted query parameters are <code>name</code>, <code>position</code>, <code>email</code>, and  <code>phone</code>
+
 #### <code>GET</code> /api/v1/employees/:employeeId/
+Example **request:**
+  - No body required/accepted
+
+Example **response:**
+```
+{
+  "id": 64,
+  "name": "Todd Gak",
+  "position": "Foreman",
+  "email": "todd@gcbuilders.net",
+  "phone": "303-123-4569"
+}
+```
+
 #### <code>GET</code> /api/v1/employees/:employeeId/projects
+Example **request:**
+  - No body required/accepted
+
+Example **response:**
+```
+[
+  {
+    "id": 77,
+    "name": "CU Denver Student Activities",
+    "location": "Denver",
+    "union": true,
+    "public": true,
+    "project_id": 77,
+    "employee_id": 75
+  },
+  {
+    "id": 89,
+    "name": "State Farm Office",
+    "location": "Golden",
+    "union": false,
+    "public": false,
+    "project_id": 89,
+    "employee_id": 75
+  }
+]
+```
+
 #### <code>POST</code> /api/v1/employees
+Example **request:**
+```
+{
+  "name": "Malcolm Reynolds",
+  "position": "Captain",
+  "email": "mal@gcbuilders.net",
+  "phone": "303-123-4569"
+}
+```
+
+Example **response:**
+```
+{
+  "id": 77
+}
+```
+
 #### <code>DELETE</code> /api/v1/employees/:employeeId
+Example **request:**
+  - No request body
+
+Example **response:**
+  - No response body. Status code 204
+
 #### <code>DELETE</code> /api/v1/projects/:projectId/employees/:employeeId
+Example **request:**
+  - No request body
+
+Example **response:**
+  - No response body. Status code 204
+
 #### <code>PATCH</code> /api/v1/employees/:employeeId
+Example **request:**
+```
+{
+  "name": "Malcolm Reynolds",
+  "position": "Captain",
+  "email": "mal@gcbuilders.net",
+  "phone": "303-123-4569"
+}
+```
+  - Request body only requires the key value pairs being changed
+
+Example **response:**
+  - No response body. Status code 204
