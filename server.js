@@ -23,17 +23,6 @@ app.set('port', process.env.PORT || 3000);
 
 app.locals.title = 'BYOB';
 
-//get JWT
-app.post('/api/v1/auth', (request, response) => {
-  const { email, appName } = request.body;
-  if (!email || !appName) {
-    return response.status(422).send('Email and App Name are required');
-  }
-  const admin = email.includes('@turing.io') ? true : false;
-  const token = jwt.sign({ email, appName, admin }, process.env.SECRETKEY, { expiresIn: '1m' });
-  return response.status(200).json(token);
-});
-
 const checkAuth = (request, response, next) => {
   if (!request.body.token) {
     return response.status(403).send('You must be authorized to hit this endpoint.');
@@ -49,6 +38,17 @@ const checkAuth = (request, response, next) => {
     next();
   })
 };
+
+//request JWT
+app.post('/api/v1/auth', (request, response) => {
+  const { email, appName } = request.body;
+  if (!email || !appName) {
+    return response.status(422).send('Email and App Name are required');
+  }
+  const admin = email.includes('@turing.io') ? true : false;
+  const token = jwt.sign({ email, appName, admin }, process.env.SECRETKEY, { expiresIn: '1m' });
+  return response.status(200).json(token);
+});
 
 //get all projects
 //Happy Path works
