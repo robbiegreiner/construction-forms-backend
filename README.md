@@ -4,7 +4,7 @@
 
 ## Introduction
 
-> This application builds an entire backend database containing construction project and employee data
+ This application builds an entire backend database containing construction project and employee data
 
 ## Built With
 
@@ -25,13 +25,13 @@
 
 ### `Authentication`
 
-> This API requires a JSON Web Token (JWT) in order to modify any of the data in the database. Request a token through the following endpoint:
+ This API requires a JSON Web Token (JWT) in order to modify any of the data in the database. Request a token through the following endpoint:
 
 `/api/v1/auth`
 
-> The request body for the token must must include the properties **appName** and **email**
+ The request body for the token must must include the properties **appName** and **email**
 
-> Example body for Token **request:**
+ Example body for Token **request:**
 ```
 {
     "appName": "byob",
@@ -40,21 +40,21 @@
 }
 ```
 
-> Example body for Token **response:**
+ Example body for Token **response:**
 ```
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBOYW1lIjoiYnlvYiIsImVtYWlsIjoicm9iYmllQHR1cmluZy5pbyJ9.xhqE8SYBJP7V2zif9UgrIVVuyqyNDiRRsQ8qurt7ODA"
 }
 ```
 
-> This token must be included when making requests with the following methods:
+ This token must be included when making requests with the following methods:
 ```
     POST
     DELETE
     PUT
     PATCH
 ```
-> The token can be included in any of the following locations:
+ The token can be included in any of the following locations:
 
 - **Request Body:** Add a key value pair for token in the body.
 
@@ -64,11 +64,11 @@
 
 ### `Authorization`
 
-> Users will be granted access to modify data if they have an email address that ends with '@turing.io'
+ Users will be granted access to modify data if they have an email address that ends with '@turing.io'
 
 ### `Resources`
 
-> **NOTES**
+ **NOTES**
 
 - All API requests will be returned JSON format.
 
