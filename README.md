@@ -89,7 +89,7 @@ Example **response:**
 
 ### Projects
 
-- <code>GET</code> /api/v1/projects
+#### <code>GET</code> /api/v1/projects
 
 Example **request:**
   - No body required/accepted
@@ -136,7 +136,7 @@ Example **response:**
     ```
     Accepted query parameters are <code>name</code> and <code>location</code>
 
-- <code>GET</code> /api/v1/projects/:projectId/employees
+#### <code>GET</code> /api/v1/projects/:projectId/employees
 Example **request:**
   - No body required/accepted
 
@@ -172,7 +172,7 @@ Example **response:**
   }
 ]
 ```
-- <code>GET</code> /api/v1/projects/:projectId/
+#### <code>GET</code> /api/v1/projects/:projectId/
 Example **request:**
   - No body required/accepted
 
@@ -186,7 +186,7 @@ Example **response:**
   "public": false
 }
 ```
-- <code>POST</code> /api/v1/projects
+#### <code>POST</code> /api/v1/projects
 Example **request:**
 ```
 {
@@ -204,21 +204,21 @@ Example **response:**
 }
 ```
 
-- <code>POST</code> /api/v1/projects/:projectId/employees/:employeeId
+#### <code>POST</code> /api/v1/projects/:projectId/employees/:employeeId
 Example **request:**
   - No request body
 
 Example **response:**
   - No response body. Status code 201
 
-- <code>DELETE</code> /api/v1/projects/:projectId
+#### <code>DELETE</code> /api/v1/projects/:projectId
 Example **request:**
   - No request body
 
 Example **response:**
   - No response body. Status code 204
 
-- <code>PATCH</code> /api/v1/projects/:projectId
+#### <code>PATCH</code> /api/v1/projects/:projectId
 Example **request:**
 ```
 {
@@ -235,9 +235,10 @@ Example **response:**
 
 ### Employees
 
-- <code>GET</code> /api/v1/employees
-- <code>GET</code> /api/v1/employees/:employeeId/projects
-- <code>POST</code> /api/v1/employees
-- <code>DELETE</code> /api/v1/employees/:employeeId
-- <code>DELETE</code> /api/v1/projects/:projectId/employees/:employeeId
-- <code>PATCH</code> /api/v1/employees/:employeeId
+#### <code>GET</code> /api/v1/employees
+#### <code>GET</code> /api/v1/employees/:employeeId/
+#### <code>GET</code> /api/v1/employees/:employeeId/projects
+#### <code>POST</code> /api/v1/employees
+#### <code>DELETE</code> /api/v1/employees/:employeeId
+#### <code>DELETE</code> /api/v1/projects/:projectId/employees/:employeeId
+#### <code>PATCH</code> /api/v1/employees/:employeeId
