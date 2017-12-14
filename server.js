@@ -92,9 +92,6 @@ app.delete('/api/v1/projects/:projectId', (request, response) => {
   //need to delete other instances where an ID is first
   database('projects').where('id', id).del()
     .then( () => {
-      return database('projects').where('id', id).del();
-    })
-    .then( () => {
       response.status(204).json({ id });
     })
     .catch(error => {
