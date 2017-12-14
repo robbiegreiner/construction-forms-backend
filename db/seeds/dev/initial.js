@@ -28,10 +28,7 @@ exports.seed = function(knex, Promise) {
       return knex('employees').insert(parser(employeeData));
     })
     .then(() => {
-      let projectsPromises =  parser(projectData).map(project => {
-        return createProject(knex, project, project.lead_employee);
-      });
-      return Promise.all(projectsPromises);
+      return knex('projects').insert(parser(projectData));
     })
     .then(() => {
       let joinPromises =  parser(employeeProjectData).map(join => {
@@ -47,16 +44,4 @@ const createJoin = (knex, project, employee) => {
     .then(() => knex('projects').where('name', project).first())
     .then(projectRecord => joinRecord.project_id = projectRecord.id)
     .then(() => knex('employees_projects').insert(joinRecord));
-};
-const createProject = (knex, project, employee) => {
-  return knex('employees').where('name', employee).first()
-    .then((employeeRecord) => {
-      return knex('projects').insert({
-        name: project.name,
-        location: project.location,
-        union: project.union,
-        public: project.public,
-        lead_employee: employeeRecord.id
-      });
-    });
 };
