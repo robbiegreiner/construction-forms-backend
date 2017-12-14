@@ -131,7 +131,6 @@ app.post('/api/v1/employees', checkAuth, (request, response) => {
 });
 
 //get single project
-//ADD TESTS Robbie
 app.get('/api/v1/projects/:projectId', (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).first()
@@ -144,7 +143,6 @@ app.get('/api/v1/projects/:projectId', (request, response) => {
 });
 
 //get single employee
-//ADD TESTS Robbie
 app.get('/api/v1/employees/:employeeId', (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).first()
@@ -172,7 +170,6 @@ app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
 });
 
 //delete employee
-//ADD TESTS Robbie
 app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).del()
@@ -215,7 +212,6 @@ app.patch('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
 });
 
 //get all employees for a project
-//ADD TESTS Robbie
 app.get('/api/v1/projects/:projectId/employees', (request, response) => {
   database('employees')
     .join('employees_projects', 'employees_projects.employee_id', 'employees.id')

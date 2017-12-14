@@ -205,4 +205,129 @@ describe('API Routes', () => {
     });
   });
 
+  describe('GET /api/v1/projects/:projectId', () => {
+    it('should return a single project', () => {
+      return chai.request(server)
+        .get('/api/v1/projects/5')
+        .then(response => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.should.be.a('object');
+          response.body.should.have.property('name');
+          response.body.name.should.be.a('string');
+          response.body.should.have.property('location');
+          response.body.location.should.be.a('string');
+          response.body.should.have.property('union');
+          response.body.union.should.be.a('boolean');
+          response.body.should.have.property('public');
+          response.body.public.should.be.a('boolean');
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+  });
+
+  describe('GET /api/v1/employees', () => {
+    it('should return a single employee', () => {
+      return chai.request(server)
+        .get('/api/v1/employees/5')
+        .then(response => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.should.have.property('id');
+          response.body.id.should.be.a('number');
+          response.body.should.have.property('name');
+          response.body.name.should.be.a('string');
+          response.body.should.have.property('position');
+          response.body.position.should.be.a('string');
+          response.body.should.have.property('email');
+          response.body.email.should.be.a('string');
+          response.body.should.have.property('phone');
+          response.body.phone.should.be.a('string');
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+  });
+
+  describe('DELETE /api/v1/employees/:employeeId', () => {
+    it('should destroy employee from database', () => {
+      chai.request(server)
+        .delete('/api/v1/employees/4')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .then(response => {
+          response.should.have.status(204);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+
+    it('should return status 422 if project does not exist', () => {
+      chai.request(server)
+        .delete('/api/v1/employees/12')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .then(response => {
+          response.should.have.status(422);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+  });
+
+  describe('GET /api/v1/projects/:projectId/employees', () => {
+    it('should return all employees for a specific project', () => {
+      return chai.request(server)
+        .get('/api/v1/projects/1/employees')
+        .then(response => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body[0].should.be.a('object');
+          response.body[0].should.have.property('id');
+          response.body[0].id.should.be.a('number');
+          response.body[0].should.have.property('name');
+          response.body[0].name.should.be.a('string');
+          response.body[0].should.have.property('position');
+          response.body[0].position.should.be.a('string');
+          response.body[0].should.have.property('email');
+          response.body[0].email.should.be.a('string');
+          response.body[0].should.have.property('phone');
+          response.body[0].phone.should.be.a('string');
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+  });
+
+  describe('GET /api/v1/employees/:employeeId/projects', () => {
+    it('should return all project for a specific employee', () => {
+      return chai.request(server)
+        .get('/api/v1/employees/4/projects')
+        .then(response => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a('array');
+          response.body[0].should.be.a('object');
+          response.body[0].should.have.property('name');
+          response.body[0].name.should.be.a('string');
+          response.body[0].should.have.property('location');
+          response.body[0].location.should.be.a('string');
+          response.body[0].should.have.property('union');
+          response.body[0].union.should.be.a('boolean');
+          response.body[0].should.have.property('public');
+          response.body[0].public.should.be.a('boolean');
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+  });
+
 });
