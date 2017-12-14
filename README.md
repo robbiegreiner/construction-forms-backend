@@ -87,23 +87,23 @@ All responses will be returned with one of the following HTTP status codes:
 
 ### Authentication _for_ `JSON Web Token (JWT)`
 
-- **<code>POST</code> /api/v1/auth
+- <code>POST</code> /api/v1/auth
 
 ### Projects
 
-- **<code>GET</code> /api/v1/projects
-- **<code>GET</code> /api/v1/projects/:projectId/employees
-- **<code>POST</code> /api/v1/projects
-- **<code>POST</code> /api/v1/projects/:projectId/employees/:employeeId
-- **<code>DELETE</code> /api/v1/projects/:projectId
-- **<code>PATCH</code> /api/v1/projects/:projectId
+- <code>GET</code> /api/v1/projects
+- <code>GET</code> /api/v1/projects/:projectId/employees
+- <code>POST</code> /api/v1/projects
+- <code>POST</code> /api/v1/projects/:projectId/employees/:employeeId
+- <code>DELETE</code> /api/v1/projects/:projectId
+- <code>PATCH</code> /api/v1/projects/:projectId
 
 
 ### Employees
 
-- **<code>GET</code> /api/v1/employees
-- **<code>GET</code> /api/v1/employees/:employeeId/projects
-- **<code>POST</code> /api/v1/employees
-- **<code>DELETE</code> /api/v1/employees/:employeeId
-- **<code>DELETE</code> /api/v1/projects/:projectId/employees/:employeeId
-- **<code>PATCH</code> /api/v1/employees/:employeeId
+- <code>GET</code> /api/v1/employees
+- <code>GET</code> /api/v1/employees/:employeeId/projects
+- <code>POST</code> /api/v1/employees
+- <code>DELETE</code> /api/v1/employees/:employeeId
+- <code>DELETE</code> /api/v1/projects/:projectId/employees/:employeeId
+- <code>PATCH</code> /api/v1/employees/:employeeId
