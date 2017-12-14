@@ -89,7 +89,8 @@ app.post('/api/v1/employees', (request, response) => {
 //delete project
 app.delete('/api/v1/projects/:projectId', (request, response) => {
   const id = request.params.projectId;
-  database('projects').where('project_id', id).del()
+  //need to delete other instances where an ID is first
+  database('projects').where('id', id).del()
     .then( () => {
       return database('projects').where('id', id).del();
     })
@@ -104,10 +105,10 @@ app.delete('/api/v1/projects/:projectId', (request, response) => {
 //delete employee
 app.delete('/api/v1/employees/:employeeId', (request, response) => {
   const id = request.params.employeeId;
-  database('employee').where('employee_id', id).del()
-    .then( () => {
-      return database('projects').where('id', id).del();
-    })
+  database('employees').where('id', id).del()
+    // .then( () => {
+    //   return database('projects').where('id', id).del();
+    // })
     .then( () => {
       response.status(204).json({ id });
     })
@@ -128,7 +129,9 @@ app.patch('/api/v1/employees/:employeeId', (request, response) => {
 
 //get all employees for a project
 app.get('/api/v1/projects/:projectId/employees', (request, response) => {
-  database('employee').where('project_id', request.params.projectId).select()
+  // get employee ids from employees_projects with project_id
+  database('employees_projects').where('project_id', request.params.projectId).select()
+  // then go get employees from employees
     .then(palettes => response.status(200).json(palettes))
     .catch(error => {
       response.status(500).json({ error });
