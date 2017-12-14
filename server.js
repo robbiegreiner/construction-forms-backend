@@ -1,4 +1,6 @@
+require('dotenv').config();
 const express = require('express');
+const jwt = require('jsonwebtoken');
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
@@ -20,6 +22,33 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('port', process.env.PORT || 3000);
 
 app.locals.title = 'BYOB';
+
+//get JWT
+app.post('/api/v1/auth', (request, response) => {
+  const { email, appName } = request.body;
+  if (!email || !appName) {
+    return response.status(422).send('Email and App Name are required');
+  }
+  const admin = email.includes('@turing.io') ? true : false;
+  const token = jwt.sign({ email, appName, admin }, process.env.SECRETKEY, { expiresIn: '1m' });
+  return response.status(200).json(token);
+});
+
+const checkAuth = (request, response, next) => {
+  if (!request.body.token) {
+    return response.status(403).send('You must be authorized to hit this endpoint.');
+  }
+
+  jwt.verify(request.body.token, app.get('secretKey'), (error, decoded) => {
+    if (error) {
+      return response.status(403).send('Invalid token');
+    }
+    if (!decoded.admin) {
+      return response.status(403).send('Invalid Admin');
+    }
+    next();
+  })
+};
 
 //get all projects
 app.get('/api/v1/projects', (request, response) => {
