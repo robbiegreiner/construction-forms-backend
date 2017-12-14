@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 1em;
+}
+body {
+  font-family: sans-serif;
+  font-size: 1rem;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
