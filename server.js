@@ -89,7 +89,6 @@ app.post('/api/v1/employees', (request, response) => {
 //delete project
 app.delete('/api/v1/projects/:projectId', (request, response) => {
   const id = request.params.projectId;
-  //need to delete other instances where an ID is first
   database('projects').where('id', id).del()
     .then( () => {
       response.status(204).json({ id });
@@ -131,8 +130,9 @@ app.get('/api/v1/projects/:projectId/employees', (request, response) => {
 });
 
 //get all projects for an employee
+//NOT WORKING
 app.get('/api/v1/employees/:employeeId/projects', (request, response) => {
-  database('employee').where('project_id', request.params.projectId).select()
+  database('projects').join('employees_projects', 'employees_projects.employee_id', '=', 'projects.id').where('employees_projects.employee_id', request.params.employeeId).select('*')
     .then(palettes => response.status(200).json(palettes))
     .catch(error => {
       response.status(500).json({ error });
