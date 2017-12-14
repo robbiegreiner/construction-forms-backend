@@ -73,9 +73,9 @@ app.get('/api/v1/projects', (request, response) => {
 //Verify thorough Sad Paths
 app.post('/api/v1/projects', checkAuth, (request, response) => {
   const project = request.body;
-
   for (let requiredParameter of ['name', 'location', 'union', 'public']) {
-    if (!project[requiredParameter]) {
+    if (!project[requiredParameter] && project[requiredParameter] !== false) {
+      console.log(requiredParameter);
       return response
         .status(422)
         .send({ error: `Expected format: { name: <String>, location: <String>, union: <Boolean>, public: <Boolean> }. You're missing a "${requiredParameter}" property.` });

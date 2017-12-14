@@ -50,6 +50,7 @@ describe('API Routes', () => {
         throw error;
       });
   });
+
   describe('GET /api/v1/projects', () => {
     it('should return all projects', () => {
       return chai.request(server)
@@ -70,14 +71,13 @@ describe('API Routes', () => {
 
           response.body[0].should.be.a('object');
           response.body[0].should.have.property('name');
-          response.body[0].name.should.equal('United Airlines Remodel');
 
         })
         .catch(err => {
           throw err;
         });
     });
-    it.skip('should return a 404 for a route that does not exist', () => {
+    it('should return a 404 for a route that does not exist', () => {
       return chai.request(server)
         .get('/api/v1/sad')
         .then(response => {
@@ -88,4 +88,39 @@ describe('API Routes', () => {
         });
     });
   });
+
+  describe('POST /api/v1/projects', () => {
+    it('should add a new project in the database', () => {
+      return chai.request(server)
+        .post('/api/v1/projects')
+        .send({
+          name: 'Vikings',
+          location: 'Minneapolis',
+          union: true,
+          public: false,
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k'
+        })
+        .then(response => {
+          response.should.have.status(201);
+          response.should.be.json;
+          response.body.should.be.a('object');
+          response.body.should.have.property('id');
+          response.body.id.should.be.a('number');
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+    it('should return a 404 for a route that does not exist', () => {
+      return chai.request(server)
+        .get('/api/v1/sad')
+        .then(response => {
+          response.should.have.status(404);
+        })
+        .catch(err => {
+          throw err;
+        });
+    });
+  });
+
 });
