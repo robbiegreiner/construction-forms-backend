@@ -129,10 +129,8 @@ app.patch('/api/v1/employees/:employeeId', (request, response) => {
 
 //get all employees for a project
 app.get('/api/v1/projects/:projectId/employees', (request, response) => {
-  // get employee ids from employees_projects with project_id
-  database('employees_projects').where('project_id', request.params.projectId)
-  // then go get employees from employees
-    .then(palettes => response.status(200).json(palettes))
+  database('employees').join('employees_projects', 'employees_projects.employee_id', '=', 'employees.id').where('employees_projects.project_id', request.params.projectId).select('*')
+    .then(employees => response.status(200).json(employees))
     .catch(error => {
       response.status(500).json({ error });
     });
