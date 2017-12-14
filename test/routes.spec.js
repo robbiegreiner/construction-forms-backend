@@ -51,23 +51,27 @@ describe('API Routes', () => {
       });
   });
   describe('GET /api/v1/projects', () => {
-    it.skip('should return all projects', () => {
+    it('should return all projects', () => {
       return chai.request(server)
         .get('/api/v1/projects')
         .then(response => {
           response.should.have.status(200);
           response.should.be.json;
-          response.body.should.be.a('object');
-          response.body.should.have.property('randomProjectName');
-          response.body.randomProjectName.should.be.a('string');
-          response.body.should.have.property('randomPaletteName');
-          response.body.randomPaletteName.should.be.a('string');
-          response.body.should.have.property('projects');
-          response.body.projects.should.be.a('array');
-          response.body.projects.length.should.equal(1);
-          response.body.projects[0].should.be.a('object');
-          response.body.projects[0].should.have.property('name');
-          response.body.projects[0].name.should.equal('Fuzzy Bunnies');
+          response.body.should.be.a('array');
+          response.body.length.should.equal(30);
+          response.body[0].should.have.property('name');
+          response.body[0].name.should.be.a('string');
+          response.body[0].should.have.property('location');
+          response.body[0].location.should.be.a('string');
+          response.body[0].should.have.property('union');
+          response.body[0].union.should.be.a('boolean');
+          response.body[0].should.have.property('public');
+          response.body[0].public.should.be.a('boolean');
+
+          response.body[0].should.be.a('object');
+          response.body[0].should.have.property('name');
+          response.body[0].name.should.equal('United Airlines Remodel');
+
         })
         .catch(err => {
           throw err;

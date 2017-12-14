@@ -1,8 +1,8 @@
 const fs = require('fs');
 
-const employeeData = fs.readFileSync('./db/seeds/test/employees.tsv', 'utf8');
-const projectData = fs.readFileSync('./db/seeds/test/projects.tsv', 'utf8');
-const employeeProjectData = fs.readFileSync('./db/seeds/test/employees_projects.tsv', 'utf8');
+const employeeData = fs.readFileSync('./db/seeds/dev/employees.tsv', 'utf8');
+const projectData = fs.readFileSync('./db/seeds/dev/projects.tsv', 'utf8');
+const employeeProjectData = fs.readFileSync('./db/seeds/dev/employees_projects.tsv', 'utf8');
 
 const parser = (data) => {
   const allLines = data.split(/\r\n|\n/);
