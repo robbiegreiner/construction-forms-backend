@@ -59,7 +59,14 @@ app.post('/api/v1/auth', (request, response) => {
 //Happy Path works
 //Verify thorough Sad Paths
 app.get('/api/v1/projects', (request, response) => {
-  database('projects').select()
+  const allowedQueryParams = ['name', 'location'];
+  const query = Object.keys(request.query).reduce((accum, key) => {
+    if (allowedQueryParams.includes(key)) {
+      return Object.assign(accum, { [key]: request.query[key] });
+    }
+    return accum;
+  }, {});
+  database('projects').where(query).select()
     .then(projects => {
       response.status(200).json(projects);
     })
@@ -94,7 +101,14 @@ app.post('/api/v1/projects', checkAuth, (request, response) => {
 //Happy Path works
 //Verify thorough Sad Paths
 app.get('/api/v1/employees', (request, response) => {
-  database('employees').select()
+  const allowedQueryParams = ['name', 'position', 'email', 'phone'];
+  const query = Object.keys(request.query).reduce((accum, key) => {
+    if (allowedQueryParams.includes(key)) {
+      return Object.assign(accum, { [key]: request.query[key] });
+    }
+    return accum;
+  }, {});
+  database('employees').where(query).select()
     .then(employees => {
       response.status(200).json(employees);
     })
