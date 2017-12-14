@@ -31,20 +31,6 @@
 
  The request body for the token must must include the properties **appName** and **email**
 
- Example body for Token **request:**
-```
-{
-    "appName": "byob",
-    "email": "robbie@turing.io",
-
-}
-```
-
- Example body for Token **response:**
-```
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IpkXVCJ9.eyJhcHBOYW1lIjoiYnlvYiIsImVtYWlsIjoicm9iYmllQHR1cmluZy5pbyJ9.xhqE8SYBJP7V2zif9UgrIVVuyqyNDiRRsQ8asrt7ODA"
-```
-
  This token must be included when making requests with the following methods:
 ```
     POST
@@ -148,14 +134,104 @@ Example **response:**
       }
     ]
     ```
-    
+    Accepted query parameters are <code>name</code> and <code>location</code>
 
 - <code>GET</code> /api/v1/projects/:projectId/employees
-- <code>POST</code> /api/v1/projects
-- <code>POST</code> /api/v1/projects/:projectId/employees/:employeeId
-- <code>DELETE</code> /api/v1/projects/:projectId
-- <code>PATCH</code> /api/v1/projects/:projectId
+Example **request:**
+  - No body required/accepted
 
+Example **response:**
+```
+[
+  {
+    "id": 62,
+    "name": "Robbie Greiner",
+    "position": "Foreman",
+    "email": "robbie@gcbuilders.net",
+    "phone": "303-123-4567",
+    "project_id": 65,
+    "employee_id": 62
+  },
+  {
+    "id": 65,
+    "name": "Alex Berg",
+    "position": "Foreman",
+    "email": "alex@gcbuilders.net",
+    "phone": "303-123-4570",
+    "project_id": 65,
+    "employee_id": 65
+  },
+  {
+    "id": 76,
+    "name": "Ron Swanson",
+    "position": "Carpenter",
+    "email": "ron@gcbuilders.net",
+    "phone": "303-123-4581",
+    "project_id": 65,
+    "employee_id": 76
+  }
+]
+```
+- <code>GET</code> /api/v1/projects/:projectId/
+Example **request:**
+  - No body required/accepted
+
+Example **response:**
+```
+{
+  "id": 76,
+  "name": "Turing School",
+  "location": "Denver",
+  "union": false,
+  "public": false
+}
+```
+- <code>POST</code> /api/v1/projects
+Example **request:**
+```
+{
+  "name": "Turing School",
+  "location": "Denver",
+  "union": false,
+  "public": false
+}
+```
+
+Example **response:**
+```
+{
+  "id": 95
+}
+```
+
+- <code>POST</code> /api/v1/projects/:projectId/employees/:employeeId
+Example **request:**
+  - No request body
+
+Example **response:**
+  - No response body. Status code 201
+
+- <code>DELETE</code> /api/v1/projects/:projectId
+Example **request:**
+  - No request body
+
+Example **response:**
+  - No response body. Status code 204
+
+- <code>PATCH</code> /api/v1/projects/:projectId
+Example **request:**
+```
+{
+  "name": "Turing School",
+  "location": "Denver",
+  "union": false,
+  "public": false
+}
+```
+  - Request body only requires the key value pairs being changed
+
+Example **response:**
+  - No response body. Status code 204
 
 ### Employees
 
