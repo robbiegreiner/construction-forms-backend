@@ -42,9 +42,7 @@
 
  Example body for Token **response:**
 ```
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBOYW1lIjoiYnlvYiIsImVtYWlsIjoicm9iYmllQHR1cmluZy5pbyJ9.xhqE8SYBJP7V2zif9UgrIVVuyqyNDiRRsQ8qurt7ODA"
-}
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IpkXVCJ9.eyJhcHBOYW1lIjoiYnlvYiIsImVtYWlsIjoicm9iYmllQHR1cmluZy5pbyJ9.xhqE8SYBJP7V2zif9UgrIVVuyqyNDiRRsQ8asrt7ODA"
 ```
 
  This token must be included when making requests with the following methods:
@@ -89,9 +87,69 @@ All responses will be returned with one of the following HTTP status codes:
 
 - <code>POST</code> /api/v1/auth
 
+Example **request:**
+```
+{
+   "appName": "byob",
+   "email": "robbie@turing.io",
+
+}
+```
+
+Example **response:**
+```
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IpkXVCJ9.eyJhcHBOYW1lIjoiYnlvYiIsImVtYWlsIjoicm9iYmllQHR1cmluZy5pbyJ9.xhqE8SYBJP7V2zif9UgrIVVuyqyNDiRRsQ8asrt7ODA"
+```
+
 ### Projects
 
 - <code>GET</code> /api/v1/projects
+
+Example **request:**
+  - No body required/accepted
+
+Example **response:**
+```
+[
+  {
+    "id": 65,
+    "name": "United Airlines Remodel",
+    "location": "Denver",
+    "union": true,
+    "public": true
+  },
+  {
+    "id": 66,
+    "name": "Coors Field West Mezzanine",
+    "location": "Denver",
+    "union": true,
+    "public": true
+  },
+  {
+    "id": 67,
+    "name": "Denver Brewing Company Tank 7",
+    "location": "Denver",
+    "union": false,
+    "public": false
+  }
+]
+```
+  - This endpoint accepts query parameters
+    <code>/api/v1/projects/?name=United Airlines Remodel</code>
+    **response:**
+    ```
+    [
+      {
+        "id": 65,
+        "name": "United Airlines Remodel",
+        "location": "Denver",
+        "union": true,
+        "public": true
+      }
+    ]
+    ```
+    
+
 - <code>GET</code> /api/v1/projects/:projectId/employees
 - <code>POST</code> /api/v1/projects
 - <code>POST</code> /api/v1/projects/:projectId/employees/:employeeId
