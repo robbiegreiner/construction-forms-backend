@@ -130,8 +130,12 @@ app.post('/api/v1/employees', checkAuth, (request, response) => {
 app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).del()
-    .then( () => {
-      response.status(204).json({ id });
+    .then(result => {
+      if (!result) {
+        response.status(422).json({ error: 'no project with that id'});
+      } else {
+        response.sendStatus(204);
+      }
     })
     .catch(error => {
       response.status(500).json({ error });
@@ -144,8 +148,12 @@ app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
 app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).del()
-    .then( () => {
-      response.status(204).send();
+    .then(result => {
+      if (!result) {
+        response.status(422).json({ error: 'no palette'});
+      } else {
+        response.sendStatus(204);
+      }
     })
     .catch(error => {
       response.status(500).json({ error });
