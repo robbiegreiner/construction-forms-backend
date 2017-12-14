@@ -11,7 +11,7 @@ const database = require('knex')(configuration);
 chai.use(chaiHttp);
 
 describe('Client Routes', () => {
-  it.skip('should return the homepage', () => {
+  it('should return the homepage', () => {
     return chai.request(server)
       .get('/')
       .then(response => {
@@ -22,7 +22,7 @@ describe('Client Routes', () => {
         throw err;
       });
   });
-  it.skip('should return a 404 for a route that does not exist', () => {
+  it('should return a 404 for a route that does not exist', () => {
     return chai.request(server)
       .get('/sad')
       .then(response => {
