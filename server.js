@@ -80,9 +80,8 @@ app.get('/api/v1/projects', (request, response) => {
 //Verify thorough Sad Paths
 app.post('/api/v1/projects', checkAuth, (request, response) => {
   const project = request.body;
-
   for (let requiredParameter of ['name', 'location', 'union', 'public']) {
-    if (!project[requiredParameter]) {
+    if (!project[requiredParameter] && project[requiredParameter] !== false) {
       return response
         .status(422)
         .send({ error: `Expected format: { name: <String>, location: <String>, union: <Boolean>, public: <Boolean> }. You're missing a "${requiredParameter}" property.` });
@@ -122,7 +121,6 @@ app.get('/api/v1/employees', (request, response) => {
 //Verify thorough Sad Paths
 app.post('/api/v1/employees', checkAuth, (request, response) => {
   const employee = request.body;
-
   for (let requiredParameter of ['name', 'position', 'email', 'phone']) {
     if (!employee[requiredParameter]) {
       return response
@@ -173,8 +171,12 @@ app.get('/api/v1/employees/:employeeId', (request, response) => {
 app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).del()
-    .then( () => {
-      response.status(204).send();
+    .then(result => {
+      if (!result) {
+        response.status(422).json({ error: 'no project with that id'});
+      } else {
+        response.sendStatus(204);
+      }
     })
     .catch(error => {
       response.status(500).json({ error });
@@ -187,8 +189,12 @@ app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
 app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).del()
-    .then( () => {
-      response.status(204).send();
+    .then(result => {
+      if (!result) {
+        response.status(422).json({ error: 'no palette'});
+      } else {
+        response.sendStatus(204);
+      }
     })
     .catch(error => {
       response.status(500).json({ error });
