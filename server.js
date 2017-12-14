@@ -58,9 +58,9 @@ app.post('/api/v1/projects', (request, response) => {
 
 //get all employee
 app.get('/api/v1/employees', (request, response) => {
-  database('employee').select()
-    .then(projects => {
-      response.status(200).json(projects);
+  database('employees').select()
+    .then(employees => {
+      response.status(200).json(employees);
     })
     .catch((error) => {
       response.status(500).json({ error });
@@ -71,15 +71,15 @@ app.get('/api/v1/employees', (request, response) => {
 app.post('/api/v1/employees', (request, response) => {
   const employee = request.body;
 
-  if (!project.name){
+  if (!employee.name){
     return response
-        .status(422)
-        .send({ error: 'Missing a name property.' });
+      .status(422)
+      .send({ error: 'Missing a name property.' });
   }
 
-  database('employee').insert(employee, 'id')
-    .then(project => {
-      response.status(201).json({ id: project[0] });
+  database('employees').insert(employee, 'id')
+    .then(employee => {
+      response.status(201).json({ id: employee[0] });
     })
     .catch(error => {
       response.status(500).json({ error });
@@ -89,10 +89,7 @@ app.post('/api/v1/employees', (request, response) => {
 //delete project
 app.delete('/api/v1/projects/:projectId', (request, response) => {
   const id = request.params.projectId;
-  database('projects').where('project_id', id).del()
-    .then( () => {
-      return database('projects').where('id', id).del();
-    })
+  database('projects').where('id', id).del()
     .then( () => {
       response.status(204).json({ id });
     })
@@ -104,12 +101,9 @@ app.delete('/api/v1/projects/:projectId', (request, response) => {
 //delete employee
 app.delete('/api/v1/employees/:employeeId', (request, response) => {
   const id = request.params.employeeId;
-  database('employee').where('employee_id', id).del()
+  database('employees').where('id', id).del()
     .then( () => {
-      return database('projects').where('id', id).del();
-    })
-    .then( () => {
-      response.status(204).json({ id });
+      response.status(204).send();
     })
     .catch(error => {
       response.status(500).json({ error });
@@ -128,16 +122,17 @@ app.patch('/api/v1/employees/:employeeId', (request, response) => {
 
 //get all employees for a project
 app.get('/api/v1/projects/:projectId/employees', (request, response) => {
-  database('employee').where('project_id', request.params.projectId).select()
-    .then(palettes => response.status(200).json(palettes))
+  database('employees').join('employees_projects', 'employees_projects.employee_id', '=', 'employees.id').where('employees_projects.project_id', request.params.projectId).select('*')
+    .then(employees => response.status(200).json(employees))
     .catch(error => {
       response.status(500).json({ error });
     });
 });
 
 //get all projects for an employee
+//NOT WORKING
 app.get('/api/v1/employees/:employeeId/projects', (request, response) => {
-  database('employee').where('project_id', request.params.projectId).select()
+  database('projects').join('employees_projects', 'employees_projects.employee_id', '=', 'projects.id').where('employees_projects.employee_id', request.params.employeeId).select('*')
     .then(palettes => response.status(200).json(palettes))
     .catch(error => {
       response.status(500).json({ error });
