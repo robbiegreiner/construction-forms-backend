@@ -19,6 +19,7 @@ if (process.env.NODE_ENV === 'production') { app.use(requireHTTPS); }
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'));
 app.set('port', process.env.PORT || 3000);
 
 app.locals.title = 'BYOB';
