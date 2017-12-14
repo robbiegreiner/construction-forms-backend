@@ -106,9 +106,6 @@ app.delete('/api/v1/projects/:projectId', (request, response) => {
 app.delete('/api/v1/employees/:employeeId', (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).del()
-    // .then( () => {
-    //   return database('projects').where('id', id).del();
-    // })
     .then( () => {
       response.status(204).json({ id });
     })
