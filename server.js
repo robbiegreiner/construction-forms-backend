@@ -156,10 +156,11 @@ app.get('/api/v1/employees/:employeeId', (request, response) => {
 
 //delete project
 app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
+  const id = request.params.projectId;
   database('projects').where('id', request.params.projectId).del()
     .then(result => {
       if (!result) {
-        response.status(422).json({ error: 'no project with that id'});
+        response.status(422).json({ error: `No Project with ID ${id}`});
       } else {
         response.sendStatus(204);
       }
@@ -175,7 +176,7 @@ app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
   database('employees').where('id', id).del()
     .then(result => {
       if (!result) {
-        response.status(422).json({ error: 'no palette'});
+        response.status(422).json({ error: `No Employee with ID ${id}`});
       } else {
         response.sendStatus(204);
       }
@@ -186,12 +187,15 @@ app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
 });
 
 //update project
-//ADD TESTS
 app.patch('/api/v1/projects/:projectId', checkAuth, (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).update(request.body)
-    .then( () => {
-      response.status(204).send();
+    .then(result => {
+      if (!result) {
+        response.status(422).json({ error: `No Project with ID ${id}`});
+      } else {
+        response.sendStatus(204);
+      }
     })
     .catch(error => {
       response.status(500).json({ error });
@@ -199,12 +203,15 @@ app.patch('/api/v1/projects/:projectId', checkAuth, (request, response) => {
 });
 
 //update employee
-//ADD TESTS
 app.patch('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).update(request.body)
-    .then( () => {
-      response.status(204).send();
+    .then(result => {
+      if (!result) {
+        response.status(422).json({ error: `No Employee with ID ${id}`});
+      } else {
+        response.sendStatus(204);
+      }
     })
     .catch(error => {
       response.status(500).json({ error });
@@ -236,7 +243,6 @@ app.get('/api/v1/employees/:employeeId/projects', (request, response) => {
 });
 
 // add employee to project
-//ADD TESTS
 app.post('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (request, response) => {
   const project = request.params.projectId;
   const employee = request.params.employeeId;
@@ -245,15 +251,14 @@ app.post('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (reques
     project_id: project
   })
     .then(() => {
-      response.status(201).send();
+      response.sendStatus(204);
     })
     .catch(error => {
-      response.status(500).json({ error });
+      response.status(422).json(error);
     });
 });
 
 //remove employee from project
-//ADD TESTS
 app.delete('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (request, response) => {
   const project = request.params.projectId;
   const employee = request.params.employeeId;
@@ -263,11 +268,15 @@ app.delete('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (requ
       project_id: project
     })
     .del()
-    .then(() => {
-      response.status(204).send();
+    .then(result => {
+      if (!result) {
+        response.status(422).json({ error: 'No Employee/Project'});
+      } else {
+        response.sendStatus(204);
+      }
     })
     .catch(error => {
-      response.status(500).json({ error });
+      response.status(422).json(error);
     });
 });
 

@@ -254,6 +254,122 @@ describe('API Routes', () => {
     });
   });
 
+  describe('PATCH /api/v1/employees/:employeeId', () => {
+    it('should update employee from database', () => {
+      chai.request(server)
+        .patch('/api/v1/employees/4')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .send({
+          name: 'Dr. Who'
+        })
+        .then(response => {
+          response.should.have.status(204);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+
+    it('should return status 422 if employee does not exist', () => {
+      chai.request(server)
+        .patch('/api/v1/employees/112')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .send({
+          name: 'Dr. Who'
+        })
+        .then(response => {
+          response.should.have.status(422);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+  });
+
+  describe('PATCH /api/v1/projects/:projectId', () => {
+    it('should update project from database', () => {
+      chai.request(server)
+        .patch('/api/v1/projects/4')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .send({
+          name: 'Tardis'
+        })
+        .then(response => {
+          response.should.have.status(204);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+
+    it('should return status 422 if project does not exist', () => {
+      chai.request(server)
+        .patch('/api/v1/projects/112')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .send({
+          name: 'Tardis'
+        })
+        .then(response => {
+          response.should.have.status(422);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+  });
+
+  describe('POST /api/v1/projects/:projectId/employees/:employeeId', () => {
+    it('should insert an employee to a project', () => {
+      chai.request(server)
+        .post('/api/v1/projects/4/employees/4')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .then(response => {
+          response.should.have.status(204);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+
+    it('should return status 422 if project or employee does not exist', () => {
+      chai.request(server)
+        .post('/api/v1/projects/4/employees/114')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .then(response => {
+          response.should.have.status(422);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+  });
+
+  describe('DELETE /api/v1/projects/:projectId/employees/:employeeId', () => {
+    it('should destroy an employee to a project', () => {
+      chai.request(server)
+        .delete('/api/v1/projects/1/employees/1')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .then(response => {
+          response.should.have.status(204);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+
+    it('should return status 422 if project or employee does not exist', () => {
+      chai.request(server)
+        .delete('/api/v1/projects/1/employees/114')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
+        .then(response => {
+          response.should.have.status(422);
+        })
+        .catch(error => {
+          throw error;
+        });
+    });
+  });
+
   describe('DELETE /api/v1/employees/:employeeId', () => {
     it('should destroy employee from database', () => {
       chai.request(server)
