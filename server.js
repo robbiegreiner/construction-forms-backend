@@ -224,7 +224,6 @@ app.get('/api/v1/projects/:projectId/employees', (request, response) => {
 });
 
 //get all projects for an employee
-//ADD TESTS Robbie
 app.get('/api/v1/employees/:employeeId/projects', (request, response) => {
   database('projects')
     .join('employees_projects', 'employees_projects.project_id', '=', 'projects.id')
