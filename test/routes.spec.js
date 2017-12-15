@@ -182,7 +182,7 @@ describe('API Routes', () => {
   describe('DELETE /api/v1/projects/:projectId', () => {
     it('should destroy project from database', () => {
       chai.request(server)
-        .delete('/api/v1/projects/5635')
+        .delete('/api/v1/projects/4')
         .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
         .then(response => {
           response.should.have.status(204);
@@ -192,9 +192,10 @@ describe('API Routes', () => {
         });
     });
 
-    it.skip('should return status 422 if project does not exist', () => {
+    it('should return status 422 if project does not exist', () => {
       chai.request(server)
         .delete('/api/v1/projects/300')
+        .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k')
         .then(response => {
           response.should.have.status(422);
         })

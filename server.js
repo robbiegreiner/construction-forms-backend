@@ -56,8 +56,6 @@ app.post('/api/v1/auth', (request, response) => {
 });
 
 //get all projects
-//Happy Path works
-//Verify thorough Sad Paths
 app.get('/api/v1/projects', (request, response) => {
   const allowedQueryParams = ['name', 'location', 'union', 'public'];
   const query = Object.keys(request.query).reduce((accum, key) => {
@@ -76,8 +74,6 @@ app.get('/api/v1/projects', (request, response) => {
 });
 
 //add new project
-//Happy Path works
-//Verify thorough Sad Paths
 app.post('/api/v1/projects', checkAuth, (request, response) => {
   const project = request.body;
   for (let requiredParameter of ['name', 'location', 'union', 'public']) {
@@ -97,8 +93,6 @@ app.post('/api/v1/projects', checkAuth, (request, response) => {
 });
 
 //get all employee
-//Happy Path works
-//Verify thorough Sad Paths
 app.get('/api/v1/employees', (request, response) => {
   const allowedQueryParams = ['name', 'position', 'email', 'phone'];
   const query = Object.keys(request.query).reduce((accum, key) => {
@@ -117,8 +111,6 @@ app.get('/api/v1/employees', (request, response) => {
 });
 
 //add new employee
-//Happy Path works
-//Verify thorough Sad Paths
 app.post('/api/v1/employees', checkAuth, (request, response) => {
   const employee = request.body;
   for (let requiredParameter of ['name', 'position', 'email', 'phone']) {
@@ -137,9 +129,9 @@ app.post('/api/v1/employees', checkAuth, (request, response) => {
       response.status(500).json({ error });
     });
 });
+
 //get single project
-//Happy Path works
-//Verify thorough Sad Paths
+//ADD TESTS Robbie
 app.get('/api/v1/projects/:projectId', (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).first()
@@ -152,8 +144,7 @@ app.get('/api/v1/projects/:projectId', (request, response) => {
 });
 
 //get single employee
-//Happy Path works
-//Verify thorough Sad Paths
+//ADD TESTS Robbie
 app.get('/api/v1/employees/:employeeId', (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).first()
@@ -166,11 +157,8 @@ app.get('/api/v1/employees/:employeeId', (request, response) => {
 });
 
 //delete project
-//Happy Path works
-//Verify thorough Sad Paths
 app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
-  const id = request.params.projectId;
-  database('projects').where('id', id).del()
+  database('projects').where('id', request.params.projectId).del()
     .then(result => {
       if (!result) {
         response.status(422).json({ error: 'no project with that id'});
@@ -184,8 +172,7 @@ app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
 });
 
 //delete employee
-//Happy Path works
-//Verify thorough Sad Paths
+//ADD TESTS Robbie
 app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).del()
@@ -202,8 +189,7 @@ app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
 });
 
 //update project
-//Happy Path works
-//Verify thorough Sad Paths
+//ADD TESTS
 app.patch('/api/v1/projects/:projectId', checkAuth, (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).update(request.body)
@@ -216,8 +202,7 @@ app.patch('/api/v1/projects/:projectId', checkAuth, (request, response) => {
 });
 
 //update employee
-//Happy Path works
-//Verify thorough Sad Paths
+//ADD TESTS
 app.patch('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).update(request.body)
@@ -230,8 +215,7 @@ app.patch('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
 });
 
 //get all employees for a project
-//Happy Path works
-//Verify thorough Sad Paths
+//ADD TESTS Robbie
 app.get('/api/v1/projects/:projectId/employees', (request, response) => {
   database('employees')
     .join('employees_projects', 'employees_projects.employee_id', 'employees.id')
@@ -244,8 +228,7 @@ app.get('/api/v1/projects/:projectId/employees', (request, response) => {
 });
 
 //get all projects for an employee
-//Happy Path works
-//Verify thorough Sad Paths
+//ADD TESTS Robbie
 app.get('/api/v1/employees/:employeeId/projects', (request, response) => {
   database('projects')
     .join('employees_projects', 'employees_projects.project_id', '=', 'projects.id')
@@ -258,8 +241,7 @@ app.get('/api/v1/employees/:employeeId/projects', (request, response) => {
 });
 
 // add employee to project
-//Happy Path works
-//Verify thorough Sad Paths
+//ADD TESTS
 app.post('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (request, response) => {
   const project = request.params.projectId;
   const employee = request.params.employeeId;
@@ -276,8 +258,7 @@ app.post('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (reques
 });
 
 //remove employee from project
-//Happy Path works
-//Verify thorough Sad Paths
+//ADD TESTS
 app.delete('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (request, response) => {
   const project = request.params.projectId;
   const employee = request.params.employeeId;
