@@ -300,6 +300,17 @@ app.post('/api/v1/forms/hotwork', (request, response) => {
     });
 });
 
+//get hotwork forms
+app.get('/api/v1/forms/hotwork', (request, response) => {
+  database('hotwork').select()
+    .then((hotwork) => {
+      response.status(200).json(hotwork);
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    });
+});
+
 app.listen(app.get('port'), () => {
   // eslint-disable-next-line no-console
   console.log(`${app.locals.title} is running on ${app.get('port')}.`);
