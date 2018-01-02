@@ -23,6 +23,24 @@ exports.seed = function(knex) {
   return knex('employees_projects').del()
     .then(() => knex('projects').del())
     .then(() => knex('employees').del())
+    .then(() => knex('hotwork').del())
+    .then(() => {
+      return knex('hotwork').insert([
+        {
+          employee_name: 'Robbie Greiner',
+          company: 'Greiner Builders',
+          date: '2018-01-01',
+          firewatchRequirement: '1 Hour',
+          timeStart: '8:00 AM',
+          finishTime: '3:00 PM',
+          areaInspected: true,
+          fireExtinguisher: true,
+          flammablesRemoved: true,
+          smokeDetectorsDisabled: true,
+          sprinklerHeadsProtected: true
+        }
+      ]);
+    })
     .then(() => {
       // Inserts seed entries
       return knex('employees').insert(parser(employeeData));
