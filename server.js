@@ -117,8 +117,9 @@ app.get('/api/v1/employees', (request, response) => {
 });
 
 //add new employee
-app.post('/api/v1/employees', checkAuth, (request, response) => {
+app.post('/api/v1/employees', (request, response) => {
   const employee = request.body;
+  console.log(employee)
   for (let requiredParameter of ['name', 'position', 'email', 'phone']) {
     if (!employee[requiredParameter]) {
       return response
