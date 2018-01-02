@@ -33,9 +33,9 @@ exports.up = function(knex, Promise) {
       table.integer('project_id');
       table.string('employee_email');
       table.string('employee_name');
-      table.integer('employee_id')
-        .unsigned()
-        .references('employees.id');
+      // table.integer('employee_id')
+      //   .unsigned()
+      //   .references('employees.id');
       table.string('company');
       table.date('date');
       table.string('firewatchRequirement');
