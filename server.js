@@ -22,8 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use((request, response, next)=>{
   response.header('Access-Control-Allow-Origin', '*');
+  response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
-})
+});
 
 app.set('port', process.env.PORT || 4000);
 
@@ -279,6 +280,19 @@ app.delete('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (requ
       } else {
         response.sendStatus(204);
       }
+    })
+    .catch(error => {
+      response.status(422).json(error);
+    });
+});
+
+//CONSTRUCTION FORMS
+
+//post hotwork form
+app.post('/api/v1/forms/hotwork', (request, response) => {
+  database('hotwork').insert(request.body)
+    .then(() => {
+      response.sendStatus(204);
     })
     .catch(error => {
       response.status(422).json(error);

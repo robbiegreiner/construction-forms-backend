@@ -28,6 +28,8 @@ exports.seed = function(knex) {
       return knex('hotwork').insert([
         {
           employee_name: 'Robbie Greiner',
+          employee_email: 'robbieg@gmail.com',
+          project_id: '10',
           company: 'Greiner Builders',
           date: '2018-01-01',
           firewatchRequirement: '1 Hour',
