@@ -80,7 +80,7 @@ app.get('/api/v1/projects', (request, response) => {
 });
 
 //add new project
-app.post('/api/v1/projects', checkAuth, (request, response) => {
+app.post('/api/v1/projects', (request, response) => {
   const project = request.body;
   for (let requiredParameter of ['name', 'location', 'union', 'public']) {
     if (!project[requiredParameter] && project[requiredParameter] !== false) {
