@@ -37,7 +37,7 @@ exports.up = function(knex, Promise) {
       //   .unsigned()
       //   .references('employees.id');
       table.string('company');
-      table.date('date');
+      table.dateTime('date');
       table.string('firewatchRequirement');
       table.string('timeStart');
       table.string('finishTime');
