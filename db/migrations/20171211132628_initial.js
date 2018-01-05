@@ -41,7 +41,7 @@ exports.up = function(knex, Promise) {
       table.boolean('flammablesRemoved');
       table.boolean('smokeDetectorsDisabled');
       table.boolean('sprinklerHeadsProtected');
-      table.binary('signature');
+      table.string('signature', 10485760);
     }),
 
     knex.schema.createTable('pretask', (table) => {
