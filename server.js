@@ -293,11 +293,9 @@ app.delete('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (requ
 app.post('/api/v1/forms/hotwork', (request, response) => {
   database('hotwork').insert(request.body)
     .then(() => {
-      console.log('200')
       response.sendStatus(204);
     })
     .catch(error => {
-      console.log(error)
       response.status(422).json(error);
     });
 });
