@@ -28,7 +28,7 @@ app.use((request, response, next)=>{
 
 app.set('port', process.env.PORT || 4000);
 
-app.locals.title = 'BYOB';
+app.locals.title = 'construction-forms-backend';
 
 const checkAuth = (request, response, next) => {
   const token = request.body.token ||
