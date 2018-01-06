@@ -33,8 +33,6 @@ exports.seed = function(knex) {
           company: 'Greiner Builders',
           date: '2018-01-01',
           firewatchRequirement: '1 Hour',
-          timeStart: '8:00 AM',
-          finishTime: '3:00 PM',
           areaInspected: true,
           fireExtinguisher: true,
           flammablesRemoved: true,
