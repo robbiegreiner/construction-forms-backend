@@ -33,6 +33,7 @@ exports.up = function(knex, Promise) {
       table.integer('project_id');
       table.string('employee_email');
       table.string('employee_name');
+      table.string('employee_id');
       table.string('company');
       table.dateTime('date');
       table.string('firewatchRequirement');
@@ -49,6 +50,7 @@ exports.up = function(knex, Promise) {
       table.integer('project_id');
       table.string('employee_email');
       table.string('employee_name');
+      table.string('employee_id');
       table.string('company');
       table.dateTime('date');
       table.integer('crewSize');
@@ -67,7 +69,7 @@ exports.up = function(knex, Promise) {
       table.boolean('safetyLocations');
       table.boolean('lifting');
       table.string('hazards');
-      table.binary('signature');
+      table.string('signature', 10485760);
     })
 
   ]);
