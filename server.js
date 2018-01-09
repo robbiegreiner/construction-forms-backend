@@ -30,25 +30,25 @@ app.set('port', process.env.PORT || 4000);
 
 app.locals.title = 'construction-forms-backend';
 
-const checkAuth = (request, response, next) => {
-  const token = request.body.token ||
-                request.headers.authorization.replace('Bearer ', '') ||
-                request.query.token;
-  if (!token) {
-    return response.status(403).send('You must be authorized to hit this endpoint.');
-  }
-
-  jwt.verify(token, process.env.SECRETKEY, (error, decoded) => {
-    if (error) {
-      return response.status(403).send('Invalid token');
-    }
-    if (!decoded.admin) {
-      return response.status(403).send('Invalid Admin');
-    }
-    delete request.body.token;
-    next();
-  });
-};
+// const checkAuth = (request, response, next) => {
+//   const token = request.body.token ||
+//                 request.headers.authorization.replace('Bearer ', '') ||
+//                 request.query.token;
+//   if (!token) {
+//     return response.status(403).send('You must be authorized to hit this endpoint.');
+//   }
+//
+//   jwt.verify(token, process.env.SECRETKEY, (error, decoded) => {
+//     if (error) {
+//       return response.status(403).send('Invalid token');
+//     }
+//     if (!decoded.admin) {
+//       return response.status(403).send('Invalid Admin');
+//     }
+//     delete request.body.token;
+//     next();
+//   });
+// };
 
 //request JWT
 app.post('/api/v1/auth', (request, response) => {
