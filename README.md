@@ -23,6 +23,20 @@
 
 ## API Documentation
 
+Clone down this repo
+Install React Native
+```
+ brew install watchman
+ npm i -g react-native-cli
+```
+
+Run iOS emulator
+```
+ npm start
+ \\ open new tab
+ react-native run-ios
+```
+
 ### `Authentication`
 
  This API requires a JSON Web Token (JWT) in order to modify any of the data in the database. Request a token through the following endpoint:
