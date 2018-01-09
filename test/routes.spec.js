@@ -152,7 +152,7 @@ describe('API Routes', () => {
           name: 'Eric Trump',
           position: 'Loser',
           email: 'loser@marlago.com',
-          phone: '222-222-2222',
+          phone: '222-222-2222'
         })
         .then(response => {
           response.should.have.status(201);
