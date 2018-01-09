@@ -161,7 +161,7 @@ app.get('/api/v1/employees/:employeeId', (request, response) => {
 });
 
 //delete project
-app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
+app.delete('/api/v1/projects/:projectId', (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', request.params.projectId).del()
     .then(result => {
@@ -177,7 +177,7 @@ app.delete('/api/v1/projects/:projectId', checkAuth, (request, response) => {
 });
 
 //delete employee
-app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
+app.delete('/api/v1/employees/:employeeId', (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).del()
     .then(result => {
@@ -193,7 +193,7 @@ app.delete('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
 });
 
 //update project
-app.patch('/api/v1/projects/:projectId', checkAuth, (request, response) => {
+app.patch('/api/v1/projects/:projectId', (request, response) => {
   const id = request.params.projectId;
   database('projects').where('id', id).update(request.body)
     .then(result => {
@@ -209,7 +209,7 @@ app.patch('/api/v1/projects/:projectId', checkAuth, (request, response) => {
 });
 
 //update employee
-app.patch('/api/v1/employees/:employeeId', checkAuth, (request, response) => {
+app.patch('/api/v1/employees/:employeeId', (request, response) => {
   const id = request.params.employeeId;
   database('employees').where('id', id).update(request.body)
     .then(result => {
@@ -249,7 +249,7 @@ app.get('/api/v1/employees/:employeeId/projects', (request, response) => {
 });
 
 // add employee to project
-app.post('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (request, response) => {
+app.post('/api/v1/projects/:projectId/employees/:employeeId', (request, response) => {
   const project = request.params.projectId;
   const employee = request.params.employeeId;
   database('employees_projects').insert({
@@ -265,7 +265,7 @@ app.post('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (reques
 });
 
 //remove employee from project
-app.delete('/api/v1/projects/:projectId/employees/:employeeId', checkAuth, (request, response) => {
+app.delete('/api/v1/projects/:projectId/employees/:employeeId', (request, response) => {
   const project = request.params.projectId;
   const employee = request.params.employeeId;
   database('employees_projects')
