@@ -93,8 +93,7 @@ describe('API Routes', () => {
           name: 'Vikings',
           location: 'Minneapolis',
           union: true,
-          public: false,
-          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k'
+          public: false
         })
         .then(response => {
           response.should.have.status(201);
@@ -154,7 +153,6 @@ describe('API Routes', () => {
           position: 'Loser',
           email: 'loser@marlago.com',
           phone: '222-222-2222',
-          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJvYmJpZUB0dXJpbmcuaW8iLCJhcHBOYW1lIjoiYnlvYiIsImFkbWluIjp0cnVlLCJpYXQiOjE1MTMyODMzMjYsImV4cCI6MTU0NDgxOTMyNn0.WJKSkDWP_2Xo888JaDLNkW7p2vs4Q7E-QWecJT2E60k'
         })
         .then(response => {
           response.should.have.status(201);
@@ -212,7 +210,6 @@ describe('API Routes', () => {
         .then(response => {
           response.should.have.status(200);
           response.should.be.json;
-          response.body.should.be.a('object');
           response.body.should.be.a('object');
           response.body.should.have.property('name');
           response.body.name.should.be.a('string');
