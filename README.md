@@ -1,10 +1,10 @@
-# Build Your Own Backend
+# Construction Forms - Backend
 
-### Robbie Greiner & Alex Banister
+### Robbie Greiner & Nick Teets
 
 ## Introduction
 
- This application builds an entire backend database containing construction project and employee data
+ This application builds an entire backend database containing construction project, employee and form data
 
 ## Built With
 
@@ -20,22 +20,6 @@
 * Chai/Mocha
 ```
 
-
-## API Documentation
-
-Clone down this repo
-Install React Native
-```
- brew install watchman
- npm i -g react-native-cli
-```
-
-Run iOS emulator
-```
- npm start
- \\ open new tab
- react-native run-ios
-```
 
 ### `Authentication`
 
