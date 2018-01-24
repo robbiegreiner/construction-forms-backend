@@ -14,39 +14,10 @@
 * Express
 * Knex
 * PostgreSQL
-* JWT Tokens
 * HTML
 * CSS
 * Chai/Mocha
 ```
-
-
-### `Authentication`
-
- This API requires a JSON Web Token (JWT) in order to modify any of the data in the database. Request a token through the following endpoint:
-
-`/api/v1/auth`
-
- The request body for the token must must include the properties **appName** and **email**
-
- This token must be included when making requests with the following methods:
-```
-    POST
-    DELETE
-    PUT
-    PATCH
-```
- The token can be included in any of the following locations:
-
-- **Request Body:** Add a key value pair for token in the body.
-
-- **Authorization Header:** Add an Authorization key with a token for the value.
-
-- **Query Parameter:** Use '?token=' as a query parameter to the request path with the token as value.
-
-### `Authorization`
-
- Users will be granted access to modify data if they have an email address that ends with '@turing.io'
 
 ### `Resources`
 
