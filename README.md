@@ -1,10 +1,10 @@
-# Build Your Own Backend
+# Construction Forms - Backend
 
-### Robbie Greiner & Alex Banister
+### Robbie Greiner & Nick Teets
 
 ## Introduction
 
- This application builds an entire backend database containing construction project and employee data
+ This application builds an entire backend database containing construction project, employee and form data
 
 ## Built With
 
@@ -14,55 +14,10 @@
 * Express
 * Knex
 * PostgreSQL
-* JWT Tokens
 * HTML
 * CSS
 * Chai/Mocha
 ```
-
-
-## API Documentation
-
-Clone down this repo
-Install React Native
-```
- brew install watchman
- npm i -g react-native-cli
-```
-
-Run iOS emulator
-```
- npm start
- \\ open new tab
- react-native run-ios
-```
-
-### `Authentication`
-
- This API requires a JSON Web Token (JWT) in order to modify any of the data in the database. Request a token through the following endpoint:
-
-`/api/v1/auth`
-
- The request body for the token must must include the properties **appName** and **email**
-
- This token must be included when making requests with the following methods:
-```
-    POST
-    DELETE
-    PUT
-    PATCH
-```
- The token can be included in any of the following locations:
-
-- **Request Body:** Add a key value pair for token in the body.
-
-- **Authorization Header:** Add an Authorization key with a token for the value.
-
-- **Query Parameter:** Use '?token=' as a query parameter to the request path with the token as value.
-
-### `Authorization`
-
- Users will be granted access to modify data if they have an email address that ends with '@turing.io'
 
 ### `Resources`
 
