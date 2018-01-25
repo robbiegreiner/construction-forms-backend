@@ -23,6 +23,8 @@ exports.seed = function(knex) {
   return knex('employees_projects').del()
     .then(() => knex('projects').del())
     .then(() => knex('employees').del())
+    .then(() => knex('hotwork').del())
+    .then(() => knex('pretask').del())
     .then(() => {
       // Inserts seed entries
       return knex('employees').insert(parser(employeeData));
